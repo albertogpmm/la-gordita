@@ -23,6 +23,11 @@ const Events = () => {
     },
   });
 
+  // Separar eventos en próximos y finalizados
+  const now = new Date();
+  const upcomingEvents = events?.filter(event => new Date(event.event_date) >= now) || [];
+  const pastEvents = events?.filter(event => new Date(event.event_date) < now) || [];
+
   return (
     <div className="min-h-screen bg-background py-8 px-4">
       <div className="max-w-4xl mx-auto space-y-8">
@@ -47,64 +52,125 @@ const Events = () => {
           </div>
         </div>
 
-        {/* Events List */}
-        <div className="space-y-6">
-          {isLoading ? (
-            <div className="text-center py-12 text-muted-foreground">
-              Cargando eventos...
-            </div>
-          ) : events && events.length > 0 ? (
-            events.map((event, index) => (
-              <Card
-                key={event.id}
-                className="bg-card border-border overflow-hidden hover:border-primary transition-all duration-300 animate-in slide-in-from-bottom-4"
-                style={{ animationDelay: `${index * 100}ms` }}
-              >
-                <div className="md:flex">
-                  {event.image_url && (
-                    <div className="md:w-1/3">
-                      <img
-                        src={event.image_url}
-                        alt={event.title}
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                  )}
-                  <div className="p-6 md:flex-1">
-                    <div className="flex items-start justify-between gap-4 mb-4">
-                      <h2 className="text-2xl font-bold text-foreground">
-                        {event.title}
-                      </h2>
-                      <div className="text-right whitespace-nowrap">
-                        <p className="text-primary font-semibold">
-                          {format(new Date(event.event_date), "dd MMM", { locale: es })}
-                        </p>
-                        <p className="text-sm text-muted-foreground">
-                          {format(new Date(event.event_date), "HH:mm", { locale: es })}
-                        </p>
+        {isLoading ? (
+          <div className="text-center py-12 text-muted-foreground">
+            Cargando eventos...
+          </div>
+        ) : (
+          <div className="space-y-12">
+            {/* Próximos Eventos */}
+            <div className="space-y-6">
+              <div className="flex items-center gap-3">
+                <div className="h-px bg-gradient-primary flex-1" />
+                <h2 className="text-2xl font-bold text-primary">Próximos Eventos</h2>
+                <div className="h-px bg-gradient-primary flex-1" />
+              </div>
+              
+              {upcomingEvents.length > 0 ? (
+                <div className="space-y-6">
+                  {upcomingEvents.map((event, index) => (
+                    <Card
+                      key={event.id}
+                      className="bg-card border-border overflow-hidden hover:border-primary transition-all duration-300 animate-in slide-in-from-bottom-4"
+                      style={{ animationDelay: `${index * 100}ms` }}
+                    >
+                      <div className="md:flex">
+                        {event.image_url && (
+                          <div className="md:w-1/3">
+                            <img
+                              src={event.image_url}
+                              alt={event.title}
+                              className="w-full h-full object-cover"
+                            />
+                          </div>
+                        )}
+                        <div className="p-6 md:flex-1">
+                          <div className="flex items-start justify-between gap-4 mb-4">
+                            <h2 className="text-2xl font-bold text-foreground">
+                              {event.title}
+                            </h2>
+                            <div className="text-right whitespace-nowrap">
+                              <p className="text-primary font-semibold">
+                                {format(new Date(event.event_date), "dd MMM", { locale: es })}
+                              </p>
+                              <p className="text-sm text-muted-foreground">
+                                {format(new Date(event.event_date), "HH:mm", { locale: es })}
+                              </p>
+                            </div>
+                          </div>
+                          {event.description && (
+                            <p className="text-muted-foreground leading-relaxed">
+                              {event.description}
+                            </p>
+                          )}
+                        </div>
                       </div>
-                    </div>
-                    {event.description && (
-                      <p className="text-muted-foreground leading-relaxed">
-                        {event.description}
-                      </p>
-                    )}
-                  </div>
+                    </Card>
+                  ))}
                 </div>
-              </Card>
-            ))
-          ) : (
-            <Card className="bg-card border-border p-12 text-center">
-              <Calendar className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
-              <p className="text-muted-foreground text-lg">
-                No hay eventos programados por el momento.
-              </p>
-              <p className="text-sm text-muted-foreground mt-2">
-                ¡Mantente atento para próximas fiestas!
-              </p>
-            </Card>
-          )}
-        </div>
+              ) : (
+                <Card className="bg-card border-border p-12 text-center">
+                  <Calendar className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
+                  <p className="text-muted-foreground text-lg">
+                    No hay eventos próximos programados.
+                  </p>
+                </Card>
+              )}
+            </div>
+
+            {/* Eventos Finalizados */}
+            {pastEvents.length > 0 && (
+              <div className="space-y-6">
+                <div className="flex items-center gap-3">
+                  <div className="h-px bg-muted flex-1" />
+                  <h2 className="text-2xl font-bold text-muted-foreground">Eventos Finalizados</h2>
+                  <div className="h-px bg-muted flex-1" />
+                </div>
+                
+                <div className="space-y-6">
+                  {pastEvents.map((event, index) => (
+                    <Card
+                      key={event.id}
+                      className="bg-card/50 border-muted overflow-hidden opacity-75 hover:opacity-100 transition-all duration-300"
+                    >
+                      <div className="md:flex">
+                        {event.image_url && (
+                          <div className="md:w-1/3 grayscale">
+                            <img
+                              src={event.image_url}
+                              alt={event.title}
+                              className="w-full h-full object-cover"
+                            />
+                          </div>
+                        )}
+                        <div className="p-6 md:flex-1">
+                          <div className="flex items-start justify-between gap-4 mb-4">
+                            <h2 className="text-2xl font-bold text-muted-foreground">
+                              {event.title}
+                            </h2>
+                            <div className="text-right whitespace-nowrap">
+                              <p className="text-muted-foreground font-semibold">
+                                {format(new Date(event.event_date), "dd MMM", { locale: es })}
+                              </p>
+                              <p className="text-sm text-muted-foreground">
+                                {format(new Date(event.event_date), "HH:mm", { locale: es })}
+                              </p>
+                            </div>
+                          </div>
+                          {event.description && (
+                            <p className="text-muted-foreground leading-relaxed">
+                              {event.description}
+                            </p>
+                          )}
+                        </div>
+                      </div>
+                    </Card>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );
