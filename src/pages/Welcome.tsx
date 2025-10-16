@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import welcomeBg from "@/assets/welcome-bg.jpg";
+import logo from "@/assets/la-gordita-logo.png";
+import welcomeHero from "@/assets/welcome-hero.jpg";
 
 const Welcome = () => {
   const navigate = useNavigate();
@@ -10,13 +11,32 @@ const Welcome = () => {
       {/* Background Image */}
       <div 
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: `url(${welcomeBg})` }}
+        style={{ backgroundImage: `url(${welcomeHero})` }}
       />
       
       {/* Overlay for better text readability */}
-      <div className="absolute inset-0 bg-background/20" />
+      <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/40 to-background/60" />
       
       <div className="relative z-10 text-center space-y-12 max-w-2xl">
+        {/* Logo */}
+        <div className="animate-in fade-in duration-500">
+          <img 
+            src={logo} 
+            alt="La Gordita" 
+            className="w-64 md:w-80 mx-auto drop-shadow-[0_0_30px_rgba(71,184,129,0.5)]"
+          />
+        </div>
+
+        {/* Welcome Message */}
+        <div className="animate-in fade-in duration-700 slide-in-from-bottom-2">
+          <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
+            Bienvenidos a La Gordita
+          </h1>
+          <p className="text-xl md:text-2xl text-muted-foreground">
+            Restaurante Mexicano · Bar · Karaoke
+          </p>
+        </div>
+
         {/* CTA Button */}
         <div className="animate-in fade-in duration-700 slide-in-from-bottom-4">
           <Button
