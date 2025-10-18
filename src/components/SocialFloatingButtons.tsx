@@ -2,11 +2,11 @@ import { Instagram, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const SocialFloatingButtons = () => {
-  const whatsappNumber = "611565522";
+  const whatsappNumber = "34611565522";
   const instagramHandle = "lagordita_mx";
 
   const handleWhatsApp = () => {
-    window.open(`https://wa.me/52${whatsappNumber}`, "_blank");
+    window.open(`https://wa.me/${whatsappNumber}`, "_blank");
   };
 
   const handleInstagram = () => {
