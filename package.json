@@ -1,5 +1,5 @@
 {
-  "name": "vite_react_shadcn_ts",
+  "name": "vite.config.ts",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -80,5 +80,20 @@
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.38.0",
     "vite": "^5.4.19"
-  }
+  },
+  "description": "Aplicacion WEB para Hosteleria",
+  "main": "eslint.config.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/S3W4R/la-gordita.git"
+  },
+  "keywords": [
+    "P4S$W0rd"
+  ],
+  "author": "Alberto Gonzalez",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/S3W4R/la-gordita/issues"
+  },
+  "homepage": "https://github.com/S3W4R/la-gordita#readme"
 }
