@@ -66,10 +66,11 @@ const Publications = () => {
                       alt={publication.title}
                       className="w-full h-full object-cover"
                     />
-                    <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                    <div className="absolute inset-0 flex items-center justify-center pointer-events-none p-4">
                       <span 
-                        className="text-white text-4xl md:text-5xl font-bold opacity-80"
+                        className="text-white font-bold opacity-80 whitespace-nowrap"
                         style={{ 
+                          fontSize: 'clamp(1.5rem, 5vw, 3.5rem)',
                           transform: 'rotate(45deg)',
                           textShadow: '2px 2px 8px rgba(0,0,0,0.8)',
                           letterSpacing: '0.1em'
